@@ -11,10 +11,10 @@ async def find_by_name(name: str):
     for d in devices:
         print("- %s (name: %s)" % (d.address, d.name))
         if (d.name == name):
-            return = d.address
+            return d.address
     return None
 
-async def print_services(mac_addr: str, loop: asyncio.AbstractEventLoop):
+async def print_services(mac_addr: str, service_uuid: str, characteristic_uuid: str, loop: asyncio.AbstractEventLoop):
     service_flag = 0
     char_flag = 0
     connect_flag = 0
@@ -23,14 +23,14 @@ async def print_services(mac_addr: str, loop: asyncio.AbstractEventLoop):
             connect_flag = 1
             svcs = client.services
             for service in svcs:
-                if (service.uuid == SERVICE_UUID):
+                if (service.uuid == service_uuid):
                     print("Service Found!")
                     service_flag = 1
                     for char in service.characteristics:
-                        if (char.uuid == CHARACTERISTIC_UUID):
+                        if (char.uuid == characteristic_uuid):
                             print("Characteristic Found! Read Start")
                             char_flag = 1
-                            read = await client.read_gatt_char(CHARACTERISTIC_UUID)
+                            read = await client.read_gatt_char(characteristic_uuid)
                             print(read)
                             break
     except:
@@ -53,6 +53,6 @@ if __name__ == "__main__":
 
 if (mac_addr is not None) :
     print("Find! Connect start : " + mac_addr)
-        loop.run_until_complete(print_services(mac_addr, args.service_uuid, args.characteristic_uuid, args.value, args.r, loop))
+    loop.run_until_complete(print_services(mac_addr, args.service_uuid, args.characteristic_uuid, loop))
 else:
     print("Sorry, There is No '%s'." % args.name)
