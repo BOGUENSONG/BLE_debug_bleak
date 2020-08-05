@@ -45,8 +45,6 @@ if __name__ == "__main__":
     parser.add_argument('name', type=str, help='Device name')
     parser.add_argument('service_uuid', type=str, help='Service UUID')
     parser.add_argument('characteristic_uuid', type=str, help='Characteristic UUID')
-    parser.add_argument('value', type=str, help='A string to be written to the characteristic.')
-    parser.add_argument('-r', action='store_true', help='Need response')
 
     args = parser.parse_args(sys.argv[1:])
 
